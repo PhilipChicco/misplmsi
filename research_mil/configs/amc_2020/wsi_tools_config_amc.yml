@@ -1,0 +1,80 @@
+
+# (1) XML to JSON: Create json files for the xml co-ordinate annotations
+xml2json:
+  xml_path_dir: # Ignore directory option
+  # where to save the json files, created if folder does not exist.
+  # set the desired folder to save files: ex: 
+  # Ex: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/AMC_ALL"
+  json_path_dir: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/AMC_ALL"
+  
+  # Path to text file containing list of slides with xml
+  # Repeat for MSS files as well. "research_mil/data/splits/AMC_MSI_TEST.txt"
+  xml_path_file: "research_mil/data/splits/AMC_MSS_TEST.txt"
+
+
+# (2) CREATE TISSUE MASKS
+tissue_mask:
+  # Directory containing the whole slide files: Leave EMPTY if using text files.
+  wsi_dir:
+  # Text file containing file paths to the wholeslides.
+  # Repeat for MSI files as well. "research_mil/data/splits/AMC_MSI_TEST.txt"
+  wsi_text: "research_mil/data/splits/AMC_MSS_TEST.txt"
+  # Whole slide file extension 
+  wsi_ext: ".tif" # *.mrxs
+  # Path to the npy save path
+  npy_dir: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/AMC_ALL"
+  # Level to extract the wholeslide tissue masks. (default 6: 2^6)
+  level: 6 
+
+# (3) TUMOR MASK: Get tumor mask of tumor-WSI and save it in npy format
+tumor_mask:
+  # Directory containing the whole slide files: Leave EMPTY if using text files.
+  wsi_dir: 
+  # Text file containing file paths to the wholeslides.
+  # Repeat for MSI files as well. "research_mil/data/splits/AMC_MSI_TEST.txt"
+  wsi_text: "research_mil/data/splits/AMC_MSI_TEST.txt"
+  # json path
+  json_dir: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/AMC_ALL"
+  # Whole slide file extension to check ('Only process slides with A in name')
+  wsi_ext: ".tif"
+  # Path to the npy save path
+  npy_dir:  "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/AMC_ALL"
+  # Level to extract the wholeslide tumor masks. (default 6: 2^6)
+  level: 6
+
+# (4) Sample points
+# Name the text_file to create according to your class correctly.
+# HE-AMC-116449907584510390-10-T has no points -- delete it
+sample_spot:
+  wsi_dir: 
+  # Path to the input directory of All WSI files
+  wsi_text: "research_mil/data/splits/AMC_MSI_TEST.txt"
+  # extension
+  wsi_ext: ".tif"
+  # Path to the mask npy file
+  mask_path: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/AMC_ALL"
+  # Path to save sampled points figures: ensure text file class (e.g. MSI) matches with save folder below
+  figure_path: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/AMC_FIGS/test/msi"
+  # Path to the save the library
+  pth_path: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/AMC_LIBS/test/msi.pth"
+  #The number of patches extracted from WSI
+  patch_number: 1000 #  2000 each {normal,tumor}
+  #The type of mask to work on (tumor/tissue) or normal files
+  mask_name: tumor # (tissue) | (tumor) | normal
+  level: 6 # 6
+  # The class name for the library
+  class: 'msi' # (mss or msi)
+
+
+# (5) Create train_lib.pth,val_lib.pth and test_lib.pth
+# Copy lib files to research_mil/data/amc_2020/msi_mss_temp/ (for example)
+create_lib:
+  # path to the folder with PTH files 
+  pth_path: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/AMC_LIBS"
+  class_names : 'mss,msi'
+
+
+
+
+
+

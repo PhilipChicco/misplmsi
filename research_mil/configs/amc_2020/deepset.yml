@@ -1,0 +1,67 @@
+# trainer and evaluator
+seed     : 8 # 1337
+trainer  : 'deepset'
+evaluator: 'deepset'
+n_gpu    : 1
+
+arch:
+    backbone     : resnet34v3
+    pooling      : deepset_mean
+    n_classes    : 2
+    embedding    : 512
+slide:
+data:
+    dataset : milRNNFolder 
+    classmap: "mss,msi"   #converts to mss: 0, msi: 1
+    
+    # AMC patches location per WSI
+    data_path: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/patches_m2_l0"
+
+    train_split: "train"
+    val_split  : "train"
+    test_split : "test"
+
+    train_nslides: 5  #
+    val_nslides  : 5  # 
+    test_nslides : 5  #
+
+training:
+    #######################################
+    # IMPORTANT
+    #NOTE: If you use more k-patches in training, then change the batch size to 1
+    k_train: 32 # train patches per bag
+    k: 512 # patches per bag during testing 
+    #######################################
+
+    epochs: 1 # 40
+    monitor: 'acc'
+    train_batch_size: 2   # default: 4 with k_train : 32
+    val_batch_size  : 1   # default: 1 with k_train : 32
+    test_batch_size : 1   # default: 1 with k : 512
+    n_workers: 6
+    lr: 0.0001 # 0.01
+    resume: mil_model.pth
+
+testing:
+    ############################################################################################################
+    # Using PRETRAINED MODELS
+    # NOTE : Do not re-train with pre-trained models, use for testing only.
+    # Checkpoint is loaded from (root,checkpoint)
+    feature   : 'checkpoints/pretrained/patch_encoder/mil_model.pth'
+    checkpoint: 'checkpoints/pretrained/wsi_model/mil_model.pth' 
+    logdir    : 'checkpoints/amc_mssmsi/wsi_model/test_amc_k512_pretrain'
+    ###########################################################################################################
+    ###########################################################################################################
+
+    ############################################################################################################
+    # FROM SCRATCH
+    # Uncomment the line to train and test from scratch
+    # feature   : 'checkpoints/amc_mssmsi/patch_encoder/mil_model.pth'
+    # checkpoint: 'checkpoints/amc_mssmsi/wsi_model/mil_model.pth' 
+    # logdir    : 'checkpoints/amc_mssmsi/wsi_model/test_amc_k512'
+    ############################################################################################################
+
+
+# logs
+root  : './research_mil/logs'
+logdir: 'checkpoints/amc_mssmsi/wsi_model'

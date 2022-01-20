@@ -1,0 +1,59 @@
+# trainer and evaluator
+seed     : 1337
+trainer  : 'basemil'
+evaluator: 'basemil'
+n_gpu    : 1
+
+arch:
+    backbone     : resnet34v3
+    pooling      : twostageavg
+    n_classes    : 2
+    embedding    : 512
+slide:
+data:
+    dataset : milFolder 
+    classmap: "mss,msi" # converts to mss: 0, msi: 1
+    
+    # AMC patches location
+    data_path: "/media/philipchicco/CHICCO4TB/Development/Data/MSSMSI/AMCData/patches_m2_l0"
+
+    # splits
+    train_split: "train" # default: train
+    val_split  : "train" # default: train , change to val if you made a val split.
+    test_split : "test"
+   
+    train_nslides: 1 
+    val_nslides  : 1  
+    test_nslides : 5 
+training:
+    k     : 128 # 32
+    k_val : 128 # 32
+    epochs: 20  # 350 mins - 6hrs / 3hrs for 10
+    monitor: 'acc'
+    train_batch_size: 128   # 128
+    val_batch_size  : 128   # 128
+    test_batch_size : 1     # 1
+    n_workers: 6
+    lr: 0.0001
+    resume: mil_model.pth
+testing:
+    ############################################################################################################
+    # Using PRETRAINED MODELS
+    # NOTE : Do not re-train with pre-trained models, use for testing only.
+    # Checkpoint is loaded from (root,checkpoint)
+    checkpoint: 'checkpoints/pretrained/patch_encoder/mil_model.pth' 
+    logdir    : 'checkpoints/amc_mssmsi/patch_encoder/test_w_pretrain'
+    ###########################################################################################################
+    ############################################################################################################
+    # FROM SCRATCH
+    # Uncomment the line to train and test from scratch
+    # checkpoint: 'checkpoints/amc_mssmsi/patch_encoder/mil_model.pth' 
+    # logdir    : 'checkpoints/amc_mssmsi/patch_encoder/test'
+    #############################################################################################################
+
+# Pretrained models
+# NOTE : Do not re-train with pre-trained models, use for testing only.
+# Model is saved in (root,logdir)
+root  : './research_mil/logs'
+logdir: 'checkpoints/amc_mssmsi/patch_encoder'
+############################################################################################################

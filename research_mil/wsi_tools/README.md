@@ -9,7 +9,7 @@
    **Note**: Modify the paths to point to your files on the server
 
    : replace ''/media/philipchicco/2.2/Anonymized_Img/" with the actual path on the server.
-   : e.g. /path/to/wsis/10.130.4.187,share=dataset/PATHOLOGY_DATA/jaehoon/ASAN_DATA
+   : e.g. /path/to/sever/DATA
 
    ```
    AMC_TRAIN_MSI.txt/

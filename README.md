@@ -1,9 +1,5 @@
 # Microsatellite Instability (MSI) detection/classification in Whole Slide Images
 
-<div align="center">
-<img width="100%" alt="pipeline-full" src="1.PNG">
-</div>
-
 ## Enviroment Requirements
 
 * Ubuntu 20
@@ -49,7 +45,7 @@ test.py : the main testing script.
 
 ## WSI Data Preprocessing
 
-* Refer to the [ReadMe](wsi_tools/README.md) file in research_mil/wsi_tools
+* Refer to the [ReadMe](research_mil/wsi_tools/README.md) file in research_mil/wsi_tools
 
 ## Train|Test MSI patch encoder
 
@@ -88,16 +84,6 @@ In order to use the pre-trained models, uncomment the paths in the config file. 
 
 ## WSI MSI Segmentation
 
-
-
-<div class="row">
-  <div class="column">
-    <img src="2.png" alt="Snow" style="width:50%">
-  </div>
-  <div class="column">
-    <img src="3.png" alt="Forest" style="width:50%">
-  </div>
-</div>
 
 * For the task of patch-based WSI segmentation of tumor or MSI regions, the script wsi_tools/wsi_mil_seg.py should be used.
 * **wsi_mil_seg.py** has two settings: (i) subtype segmentation of MSS/MSI using reference tumor mask (ground-truth tumor regions) and (ii) tumor segmentation on the entire tissue regions.
